@@ -1,0 +1,26 @@
+# Build outputs
+/build/
+/cmake-build-*/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# IDE/editor files
+.vscode/
+.cache/
+.idea/
+*.user
+*.suo
+*.swp
+*~
+
+# Dataset
+data/processed/*
+data/raw/mnist/*
+
+# imgui config
+imgui.ini
