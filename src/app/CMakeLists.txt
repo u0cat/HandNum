@@ -23,14 +23,19 @@ target_link_libraries(imgui PUBLIC SDL3::SDL3)
 
 set(appScreens
     screen/ScreenManager.cpp
-    
+
     screen/PredictScreen/PredictScreen.cpp
+)
+
+set(appComponents
+    components/canvas/canvas.cpp
+    components/preview/Preview.cpp
 )
 
 add_executable(HandNum
     app.cpp
-    components/canvas/canvas.cpp
     ${appScreens}
+    ${appComponents}
 )
 
 target_include_directories(HandNum PRIVATE
