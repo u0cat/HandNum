@@ -9,7 +9,6 @@ namespace app::screen {
         virtual ~Screen() = default;
 
     protected:
-        bool isEnabled_ = true;
         ScreenManager *mgr_ = nullptr;
 
     private:
@@ -18,8 +17,6 @@ namespace app::screen {
         void attach(ScreenManager *mgr) { mgr_ = mgr; }
 
         virtual void render() {}
-        virtual void disable() { isEnabled_ = false; }
-        virtual void enable() { isEnabled_ = true; }
     };
 } // namespace app::screen
 
