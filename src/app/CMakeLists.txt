@@ -29,6 +29,7 @@ set(appScreens
 
 set(appComponents
     components/canvas/canvas.cpp
+    components/file_picker/FilePicker.cpp
     components/preview/Preview.cpp
 )
 
