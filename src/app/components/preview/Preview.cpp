@@ -20,7 +20,21 @@ namespace app::components {
         if (frame.empty() || (frame.channels() != 1 && frame.channels() != 3 && frame.channels() != 4))
             return false;
 
-        frame_ = frame.clone();
+        cv::Mat normalized;
+        if (frame.depth() == CV_8U) {
+            normalized = frame;
+        } else {
+            cv::normalize(frame, normalized, 0, 255, cv::NORM_MINMAX, CV_8U);
+        }
+
+        if (normalized.channels() == 1) {
+            cv::cvtColor(normalized, frame_, cv::COLOR_GRAY2BGR);
+        } else if (normalized.channels() == 4) {
+            cv::cvtColor(normalized, frame_, cv::COLOR_BGRA2BGR);
+        } else {
+            frame_ = normalized.clone();
+        }
+
         frameReady_ = true;
         return true;
     }
@@ -51,7 +65,7 @@ namespace app::components {
         if (!texture_ || textureWidth_ != frame_.cols || textureHeight_ != frame_.rows) {
             if (texture_)
                 SDL_DestroyTexture(texture_);
-            texture_ = SDL_CreateTexture(renderer_, SDL_PIXELFORMAT_BGR48, SDL_TEXTUREACCESS_STREAMING, frame_.cols,
+            texture_ = SDL_CreateTexture(renderer_, SDL_PIXELFORMAT_BGR24, SDL_TEXTUREACCESS_STREAMING, frame_.cols,
                                          frame_.rows);
             if (!texture_) {
                 textureWidth_ = 0;
