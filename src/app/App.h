@@ -15,6 +15,8 @@ namespace app {
         int run();
 
         screen::ScreenManager *getScreenMgr();
+        SDL_Window *getWindow() const { return window_; }
+        SDL_Renderer *getRenderer() const { return renderer_; }
 
     private:
         bool running_ = false;

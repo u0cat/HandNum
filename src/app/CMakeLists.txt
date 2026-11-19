@@ -24,7 +24,9 @@ target_link_libraries(imgui PUBLIC SDL3::SDL3)
 set(appScreens
     screen/ScreenManager.cpp
 
+    screen/CameraScreen/CameraScreen.cpp
     screen/PredictScreen/PredictScreen.cpp
+    screen/MainScreen/MainScreen.cpp
 )
 
 set(appComponents

@@ -6,12 +6,13 @@
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 
-#include "screen/PredictScreen/PredictScreen.h"
+#include "screen/MainScreen/MainScreen.h"
 
 int main(int, char **) {
     app::App handNum{};
 
-    handNum.getScreenMgr()->add("predict", std::make_unique<app::screen::PredictScreen>());
+    auto *screens = handNum.getScreenMgr();
+    screens->add("main", std::make_unique<app::screen::MainScreen>(handNum.getRenderer()));
 
     return handNum.run();
 }
@@ -70,6 +71,7 @@ namespace app {
         ImGui_ImplSDL3_Shutdown();
         ImGui::DestroyContext();
 
+        screenMgr_.reset();
         SDL_DestroyRenderer(renderer_);
         SDL_DestroyWindow(window_);
         SDL_Quit();
