@@ -1,6 +1,7 @@
 #include "ScreenManager.h"
 
 #include <utility>
+#include <vector>
 
 namespace app::screen {
     ScreenManager::ScreenManager() {}
@@ -53,9 +54,15 @@ namespace app::screen {
     }
 
     void ScreenManager::render() {
-        for (auto &[screenName, screen]: screens_) {
-            if (isEnabled(screenName))
+        std::vector<std::pair<std::string, Screen *>> enabled;
+        enabled.reserve(screens_.size());
+
+        for (const auto &[name, screen]: screens_)
+            if (isEnabled(name))
+                enabled.emplace_back(name, screen.get());
+
+        for (const auto &[name, screen]: enabled)
+            if (isEnabled(name) && getScreen(name) == screen)
                 screen->render();
-        }
     }
 } // namespace app::screen
